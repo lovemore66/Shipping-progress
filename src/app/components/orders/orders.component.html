@@ -1,0 +1,78 @@
+<main>
+  <div class="btn">
+    <button
+      *ngFor="let order of orders$; let i = index"
+      [class.active]="activeRowIndex === i"
+      (click)="getOrderDetails(order.orderId, i)"
+    >
+      {{ order.orderStatus }}
+    </button>
+  </div>
+  <section>
+    <div class="order-details">
+      <div class="heading">
+        <h3>
+          Order: <span>#{{ orderDetails$?.orderId }}</span>
+        </h3>
+        <strong
+          >Estimated Delivery: <br /><span>{{
+            orderDetails$?.estimateDelivery
+          }}</span></strong
+        >
+      </div>
+      <div class="top"></div>
+    </div>
+    <div class="details">
+      <div [ngClass]="getOrderStatusClass()">
+        <div class="titles">
+          <h4 id="progress">Preparing Order</h4>
+          <h4 id="shipped">Shipped</h4>
+          <h4 id="delivered">Delivered</h4>
+        </div>
+      </div>
+      <div class="circles">
+        <div class="completed">
+          <div [ngClass]="getOrderStatusClass()">
+            <div class="first">
+              <img src="assets/correct.png" alt="check" />
+            </div>
+          </div>
+          <div [ngClass]="getOrderStatusClass()">
+            <div class="second">
+              <img src="assets/correct.png" alt="check" />
+            </div>
+          </div>
+          <div [ngClass]="getOrderStatusClass()">
+            <div class="third">
+              <img src="assets/correct.png" alt="check" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="progressbar" *ngIf="orderDetails$">
+        <div class="progress">
+          <div
+            *ngIf="orderDetails$.orderStatus !== 'Unknown'"
+            class="bar"
+            [style.width]="
+              (orderDetails$.orderStatusProgress.timeSpent /
+                orderDetails$.orderStatusProgress.timeRequired) *
+                100 +
+              '%'
+            "
+          ></div>
+        </div>
+      </div>
+      <div class="arrival">
+        <h4>
+          Arriving by <span>{{ orderDetails$?.estimateDelivery }}</span>
+        </h4>
+      </div>
+    </div>
+    <div class="l-btn">
+      <button>See Tracking Details</button>
+    </div>
+    <div class="bottom"></div>
+  </section>
+</main>

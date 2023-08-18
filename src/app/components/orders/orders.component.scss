@@ -1,0 +1,303 @@
+@import "../../global.scss";
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin gradient-background($color1, $color2) {
+  background-image: linear-gradient(to right, $color1 12%, $color2 0%);
+  background-position: bottom;
+  background-size: 10px 1.8px;
+  background-repeat: repeat-x;
+}
+
+@mixin order-status {
+  height: 30px;
+  border-radius: 50%;
+  width: 30px;
+  background-color: $secondary-color;
+}
+
+@mixin second-third {
+  background-color: $white-color;
+  border: 5px solid $border-color;
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+}
+
+@mixin button-media-queries {
+  .btn {
+    display: flex;
+    position: relative;
+    margin: 0 auto 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: space-between;
+    button {
+      flex: 1;
+      font-weight: bold;
+      box-sizing: border-box;
+      margin-right: 15px;
+      padding: 5px 15px;
+      border: 1px solid $secondary-color;
+      border-radius: 16px;
+    }
+  }
+}
+
+main {
+  .btn {
+    color: white;
+    padding: 20px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    .active {
+      color: $white-color;
+      background-color: $border-color;
+    }
+    button {
+      font-weight: bold;
+      box-sizing: border-box;
+      margin-right: 20px;
+      background-color: $border-color;
+      color: $primary-color;
+      padding: 8px 25px;
+      border: 1px solid $primary-color;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+    button:hover {
+      opacity: 0.9;
+    }
+  }
+
+  @include flex-center;
+  flex-direction: column;
+  height: 100vh;
+  background-color: $background-color;
+  section {
+    width: 400px;
+    background-color: $white-color;
+    box-sizing: border-box;
+    padding: 45px 30px;
+
+    .bottom {
+      @include flex-center;
+      justify-content: space-between;
+      @include gradient-background(#000, rgba(255, 255, 255, 0));
+    }
+
+    .heading {
+      display: flex;
+      justify-content: space-between;
+      h3 {
+        font-size: 22px;
+        span {
+          color: $dark-grey-color;
+        }
+      }
+      strong {
+        font-size: 14px;
+        line-height: 1.4;
+        text-align: right;
+        span {
+          color: $dark-grey-color;
+        }
+      }
+    }
+
+    .top {
+      padding-bottom: 36px;
+      align-items: baseline;
+      @include gradient-background(#000, rgba(255, 255, 255, 0));
+    }
+
+    .bottom {
+      padding: 35px 30px 0;
+    }
+
+    .titles {
+      margin-top: 30px;
+      @include flex-center;
+      justify-content: space-between;
+      text-align: center;
+      h4 {
+        flex: 1;
+        color: $border-color;
+        white-space: nowrap;
+      }
+      h4:last-child {
+        text-align: right;
+      }
+      h4:first-child {
+        text-align: left;
+      }
+    }
+
+    .arrival {
+      h4 {
+        color: $primary-color;
+      }
+      span {
+        color: $dark-grey-color;
+      }
+    }
+
+    .l-btn {
+      button {
+        padding: 15px 30px;
+        width: 100%;
+        border-radius: 50px;
+        background-color: $primary-color;
+        color: $white-color;
+        margin-top: 30px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        opacity: 0.9;
+      }
+    }
+
+    .details {
+      position: relative;
+    }
+
+    .circles {
+      @include flex-center;
+      height: 80px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .pending {
+      .titles {
+        #progress {
+          color: $secondary-color;
+        }
+      }
+    }
+
+    .shipped {
+      .titles {
+        #progress,
+        #shipped {
+          color: $secondary-color;
+        }
+      }
+    }
+
+    .delivered {
+      .titles {
+        #progress,
+        #shipped,
+        #delivered {
+          color: $secondary-color;
+        }
+      }
+    }
+
+    .completed {
+      @include flex-center;
+      position: absolute;
+      width: 100%;
+      justify-content: space-between;
+      img {
+        height: 100%;
+        width: 100%;
+      }
+      .pending {
+        @include order-status;
+        .third,
+        .second {
+          @include second-third;
+          img {
+            display: none;
+          }
+        }
+      }
+
+      .shipped {
+        @include order-status;
+        .third {
+          @include second-third;
+          img {
+            display: none;
+          }
+        }
+      }
+
+      .delivered {
+        @include order-status;
+        img {
+          height: 100%;
+          width: 100%;
+        }
+      }
+
+      .unknown {
+        @include order-status;
+        background-color: $white-color;
+        border: 5px solid $border-color;
+        img {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .progressbar {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    margin-top: -80px;
+    border-radius: 4px;
+    p {
+      margin: 0;
+      padding: 0;
+    }
+    .progress {
+      height: 5px;
+      background-color: $border-color;
+      width: 100%;
+      border-radius: 4px;
+      .bar {
+        height: 5px;
+        background-color: $secondary-color;
+        width: 0;
+        transition-property: width;
+        transition-duration: $transition-duration;
+        transition-timing-function: ease-out;
+        border-radius: 4px;
+      }
+    }
+  }
+}
+
+// Mobile devices
+@media screen and (max-width: 768px) {
+  main {
+    padding: 30px;
+    position: relative;
+    section {
+      width: 100%;
+    }
+    @include button-media-queries;
+  }
+}
+// Tablets
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  // could add more styles
+  main {
+    padding: 30px;
+    position: relative;
+    section {
+      width: 100%;
+    }
+    @include button-media-queries;
+  }
+}
